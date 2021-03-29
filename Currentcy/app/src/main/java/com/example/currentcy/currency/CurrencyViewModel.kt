@@ -8,16 +8,19 @@ import androidx.lifecycle.MutableLiveData
 
 class CurrencyViewModel(application: Application) : AndroidViewModel(application) {
 
-//    private val _currencyList = MutableLiveData<CurrencyData>()
-//    val currencyList : LiveData<CurrencyData>
-//        get() = _currencyList
-//
-//    init {
-//
-//    }
-//
-//    fun addToList() {
-//        _currencyList.add
-//    }
+    private val _calculateRates = MutableLiveData<Boolean>()
+    val calculateRates: LiveData<Boolean>
+        get() = _calculateRates
 
+    init {
+
+    }
+
+    fun onCalculate() {
+        _calculateRates.value = true
+    }
+
+    fun onCalculateReset() {
+        _calculateRates.value = false
+    }
 }
