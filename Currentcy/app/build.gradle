@@ -54,4 +54,33 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
+
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    // Volley
+    implementation 'com.android.volley:volley:1.2.0'
+
+    // Moshi
+    implementation 'com.squareup.moshi:moshi:1.5.0'
+
+    // Network
+    implementation "com.squareup.okhttp3:logging-interceptor:4.5.0"
+
+    // Network 2
+    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //json
+//    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
+
+    ///json2
+    implementation 'com.beust:klaxon:5.0.1'
+
+    // Volley
+    implementation 'com.android.volley:volley:1.2.0'
 }

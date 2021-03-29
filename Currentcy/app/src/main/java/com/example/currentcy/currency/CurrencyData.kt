@@ -1,6 +1,6 @@
 package com.example.currentcy.currency
 
-class CurrencyData {
-    val id: Int? = null
-    val name: String? = null
+class CurrencyData(val currencies: List<Currencies>) {
+//    val name: String? = null
+//    val rate: Double? = null
 }
