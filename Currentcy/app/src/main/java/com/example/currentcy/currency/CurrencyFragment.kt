@@ -53,9 +53,9 @@ class CurrencyFragment : Fragment() {
 
         currencyViewModel.calculateRates.observe(viewLifecycleOwner, Observer {
             if (it) {
-//                val toRemoveList: ArrayList<Currencies>? = null
-
                 val multiplicatonRate = binding.currencyInput.text.toString()
+
+                currencyListMultiply?.clear()
 
                 if (!multiplicatonRate.isEmpty()) {
                     for (elements in currencyList!!) {
@@ -64,31 +64,20 @@ class CurrencyFragment : Fragment() {
                         val tmpCurrencyRate =
                             elements.rate.toDouble() * multiplicatonRate.toDouble()
 
-                        currencyList?.find { it.name == elements.name }?.rate =
-                            tmpCurrencyRate.toString()
-
-//                    currencyList!!.remove(elements)
-
                         val tmpCurrency = Currencies(tmpCurrencyName, tmpCurrencyRate.toString())
 
-//                        toRemoveList?.add(tmpCurrency)
                         currencyListMultiply!!.add(tmpCurrency)
-
-                        val adapter = CurrencyAdapter(currencyListMultiply)
-//                        adapter.notifyDataSetChanged()
-
-
-                        binding.currencyList.adapter = adapter
                     }
+
+                    val adapter = CurrencyAdapter(currencyListMultiply)
+
+                    binding.currencyList.adapter = adapter
 
                     currencyViewModel.onCalculateReset()
                 } else {
                     Toast.makeText(context, "Multiplication rate not set!", Toast.LENGTH_SHORT)
                         .show()
                 }
-
-//                toRemoveList?.let { it1 -> currencyListMultiply?.removeAll(it1) }
-
             }
 
         })
