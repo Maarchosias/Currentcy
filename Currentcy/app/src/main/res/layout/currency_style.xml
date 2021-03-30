@@ -12,17 +12,17 @@
         android:id="@+id/note_base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="3dp"
-        android:elevation="32dp">
+        android:layout_marginBottom="1dp"
+        android:elevation="32dp"
+        android:background="@android:color/white">
+<!--        android:backgroundTint="@color/itemBackgroundColor"-->
 
         <ImageView
             android:id="@+id/currency_type"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="7.5dp"
+            android:src="@mipmap/ic_blank"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,20 +35,29 @@
             android:text="DUMMY"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
+            app:layout_constraintStart_toEndOf="@id/currency_type"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
 
         <TextView
             android:id="@+id/currency_rate"
-            android:layout_width="46dp"
+            android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginEnd="15dp"
             android:text="PRICE"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/currency_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/currency_title" />
+            app:layout_constraintTop_toTopOf="@+id/currency_title"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

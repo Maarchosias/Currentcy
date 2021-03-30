@@ -19,7 +19,8 @@
             android:layout_height="40dp"
             android:src="@mipmap/ic_eu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"/>
 
         <EditText
             android:id="@+id/currency_input"
@@ -27,7 +28,8 @@
             android:layout_height="40dp"
             app:layout_constraintStart_toEndOf="@id/currency_main"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/currency_button"/>
+            app:layout_constraintEnd_toStartOf="@id/currency_button"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"/>
 
         <Button
             android:id="@+id/currency_button"
@@ -39,12 +41,21 @@
             android:textSize="10sp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/currency_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="3dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
