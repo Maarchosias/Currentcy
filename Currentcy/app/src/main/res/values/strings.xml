@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Currentcy</string>
+    <string name="add_exchange_rate">Add exchange rate</string>
 </resources>

@@ -25,6 +25,8 @@ var currencyItem: List<Currencies>? = null
 
 var currencyListMultiply: ArrayList<Currencies>? = ArrayList<Currencies>()
 
+val api_key = "ff4b13a6965fddcc4e972fd82e3a6be9"
+
 // CurrencyAdapterInfo
 class CurrencyFragment : Fragment() {
 
@@ -84,10 +86,7 @@ class CurrencyFragment : Fragment() {
     }
 
     fun getPostVolley() {
-
-        Log.e("STARTED: ", "NOW")
-
-        val url = "https://api.exchangeratesapi.io/latest?base=EUR"
+        val url = "http://api.exchangeratesapi.io/v1/latest?access_key=" + api_key
 
         val requestQueue: com.android.volley.RequestQueue? = Volley.newRequestQueue(context)
         val jsonObjectRequest =
@@ -114,7 +113,8 @@ class CurrencyFragment : Fragment() {
                         e.printStackTrace()
                         Log.e("ERROR: ", "$e")
                     }
-                }) { error -> error.printStackTrace() }
+                }) { error -> error.printStackTrace()
+            Log.e("ERROR", error.toString())}
 
         if (requestQueue != null) {
             requestQueue.add(jsonObjectRequest)

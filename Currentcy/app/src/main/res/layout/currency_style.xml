@@ -2,20 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--    <data>-->
-    <!--        <variable-->
-    <!--            name="note"-->
-    <!--            type="com.example.currentcy.currency.CurrencyData" />-->
-    <!--    </data>-->
+    <data>
+
+        <variable
+            name="currency"
+            type="com.example.currentcy.currency.Currencies" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/note_base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:elevation="32dp"
-        android:background="@android:color/white">
-<!--        android:backgroundTint="@color/itemBackgroundColor"-->
+        android:background="@android:color/white"
+        android:backgroundTint="@color/white"
+        android:elevation="32dp">
 
         <ImageView
             android:id="@+id/currency_type"
@@ -31,33 +32,29 @@
             android:id="@+id/currency_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans"
             android:gravity="center"
             android:text="DUMMY"
-            android:textSize="16sp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
+            app:layout_constraintEnd_toStartOf="@id/currency_rate"
             app:layout_constraintStart_toEndOf="@id/currency_type"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
 
         <TextView
             android:id="@+id/currency_rate"
             android:layout_width="0dp"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
+            android:fontFamily="@font/work_sans"
+            android:textColor="@color/black"
+            android:gravity="center"
             android:text="PRICE"
             android:textSize="14sp"
-            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/currency_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/currency_title"
-            app:layout_constraintStart_toEndOf="@id/guideline_vertical"/>
+            app:layout_constraintTop_toTopOf="@+id/currency_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
