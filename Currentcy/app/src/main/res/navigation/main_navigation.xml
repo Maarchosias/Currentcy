@@ -2,12 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_navigation"
-    app:startDestination="@id/currencyFragment">
+    android:id="@+id/base_navigation"
+    app:startDestination="@id/navigation_currencies">
 
     <fragment
-        android:id="@+id/currencyFragment"
+        android:id="@+id/navigation_currencies"
         android:name="com.example.currentcy.currency.CurrencyFragment"
         android:label="CurrencyFragment"
-        tools:layout="@layout/fragment_currency"/>
+        tools:layout="@layout/fragment_currency">
+        <action
+            android:id="@+id/action_navigation_currencies_to_navigation_convert"
+            app:destination="@id/navigation_convert"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_convert"
+        android:name="com.example.currentcy.convert.ConvertFragment"
+        android:label="ConvertFragment"
+        tools:layout="@layout/fragment_convert" />
 </navigation>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Currentcy</string>
     <string name="add_exchange_rate">Add exchange rate</string>
+    <string name="convert">CONVERT</string>
+    <string name="currencies">CURRENCIES</string>
+    <string name="edit_currency_list">Edit currency list</string>
 </resources>

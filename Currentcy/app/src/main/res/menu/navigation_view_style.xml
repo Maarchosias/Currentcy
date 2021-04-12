@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <group>
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
+        <!--            android:icon="@drawable/ic_userid"-->
+
+        <item
+            android:id="@+id/nav_myrides"
+            android:title="My Rides" />
+        <!--            android:icon="@drawable/ic_history"-->
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:title="Notifications" />
+        <!--            android:icon="@drawable/ic_notification"-->
+
+        <item
+            android:id="@+id/nav_driverpanel"
+            android:title="Driver Panel" />
+        <!--            android:icon="@drawable/ic_driver"-->
+
+        <item
+            android:id="@+id/nav_contact"
+            android:title="Contact" />
+        <!--            android:icon="@drawable/ic_customer_support"-->
+
+    </group>
+
+
+</menu>

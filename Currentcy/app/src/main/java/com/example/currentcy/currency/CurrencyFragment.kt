@@ -1,5 +1,6 @@
 package com.example.currentcy.currency
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,16 +17,17 @@ import com.android.volley.Request.Method.GET
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.currentcy.R
+import com.example.currentcy.currency.currency_list.CurrencyListActivity
 import com.example.currentcy.databinding.FragmentCurrencyBinding
 import org.json.JSONException
 import kotlin.collections.ArrayList
 
-var currencyList: ArrayList<Currencies>? = ArrayList<Currencies>()
-var currencyItem: List<Currencies>? = null
+private var currencyList: ArrayList<Currencies>? = ArrayList<Currencies>()
+private var currencyItem: List<Currencies>? = null
 
-var currencyListMultiply: ArrayList<Currencies>? = ArrayList<Currencies>()
+private var currencyListMultiply: ArrayList<Currencies>? = ArrayList<Currencies>()
 
-val api_key = "ff4b13a6965fddcc4e972fd82e3a6be9"
+private val api_key = "ff4b13a6965fddcc4e972fd82e3a6be9"
 
 // CurrencyAdapterInfo
 class CurrencyFragment : Fragment() {
@@ -81,8 +83,23 @@ class CurrencyFragment : Fragment() {
                         .show()
                 }
             }
-
         })
+
+        currencyViewModel.editList.observe(viewLifecycleOwner, Observer {
+            if(it) {
+                val intent = Intent(context, CurrencyListActivity::class.java)
+
+                startActivity(intent)
+                currencyViewModel.onEditListReset()
+            }
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        currencyList?.clear()
+        currencyListMultiply?.clear()
     }
 
     fun getPostVolley() {

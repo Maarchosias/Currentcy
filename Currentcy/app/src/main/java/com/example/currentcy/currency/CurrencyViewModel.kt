@@ -12,6 +12,10 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
     val calculateRates: LiveData<Boolean>
         get() = _calculateRates
 
+    private val _editList = MutableLiveData<Boolean>()
+    val editList: LiveData<Boolean>
+        get() = _editList
+
     init {
 
     }
@@ -22,5 +26,13 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
 
     fun onCalculateReset() {
         _calculateRates.value = false
+    }
+
+    fun onEditList() {
+        _editList.value = true
+    }
+
+    fun onEditListReset() {
+        _editList.value = false
     }
 }
