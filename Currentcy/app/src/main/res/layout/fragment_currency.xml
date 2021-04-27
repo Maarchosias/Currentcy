@@ -107,6 +107,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currency_selector" />
 
+        <TextView
+            android:id="@+id/emptyList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="No currencies were added!"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <!--        <androidx.drawerlayout.widget.DrawerLayout-->
         <!--            android:layout_width="match_parent"-->
         <!--            android:layout_height="match_parent">-->

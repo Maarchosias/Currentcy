@@ -1,5 +1,6 @@
 package com.example.currentcy.currency.currency_list
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,104 +10,292 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currentcy.R
 import com.example.currentcy.currency.Currencies
 import com.example.currentcy.currency.CurrencyAdapter
+//import com.example.currentcy.currency.populaterList
 import com.example.currentcy.databinding.CurrencyListSelectStyleBinding
-
-class CurrencySelectAdapter(private val myList: ArrayList<Currencies>?) :
-    ListAdapter<Currencies, CurrencySelectAdapter.ViewHolder>(
+//private val myList: ArrayList<CurrencyListStorage>?,
+class CurrencySelectAdapter(val adapterChecker: CurrencyAdapterChecker) :
+    ListAdapter<CurrencyListStorage, CurrencySelectAdapter.ViewHolder>(
         ShowNotesDiffCallback()
     ) {
 
     override fun getItemCount(): Int {
-        return myList!!.count()
+//        return myList!!.count()
+        return currencyListStorage!!.count()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencySelectAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CurrencySelectAdapter.ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        myList?.get(position)?.let { holder?.bind(it) }
-        val currentItem = myList?.get(position)
+//        val currentItem = myList?.get(position)
+        val currentItem = currencyListStorage?.get(position)
 
         if (currentItem != null) {
-            holder.bind(currentItem)
+            holder.bind(currentItem, adapterChecker)
         }
     }
 
-    class ViewHolder(val binding: CurrencyListSelectStyleBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: CurrencyListSelectStyleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(currentItem: Currencies) {
-            binding.currencyTitle.text = currentItem.name
+        fun bind(currentItem: CurrencyListStorage, currencyChecker: CurrencyAdapterChecker) {
+            binding.currencyTitle.text = currentItem.currencyName
+
+            binding.itemCheckbox.isChecked = currentItem.checked
+
+            binding.itemCheckbox.setOnClickListener {
+                if (currentItem.checked) {
+                    binding.itemCheckbox.isChecked = false
+                    currentItem.checked = false
+                    currencyChecker.editItem(currentItem.currencyName, currentItem.checked)
+                    //populaterList.remove(currentItem.currencyName)
+                } else {
+                    binding.itemCheckbox.isChecked = true
+                    currentItem.checked = true
+                    currencyChecker.editItem(currentItem.currencyName, currentItem.checked)
+                    //populaterList.add(currentItem.currencyName)
+                }
+            }
 
             // context for the currencyType
             val currencyTypeContext = binding.currencyType.context
 
-            if(currentItem.name == "CAD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_cad))
-            } else if(currentItem.name == "HKD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_hkd))
-            } else if(currentItem.name == "ISK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_isk))
-            } else if(currentItem.name == "PHP") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_php))
-            } else if(currentItem.name == "DKK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_dkk))
-            } else if(currentItem.name == "HUF") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_huf))
-            } else if(currentItem.name == "CZK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_czk))
-            } else if(currentItem.name == "AUD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_aud))
-            } else if(currentItem.name == "RON") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_ron))
-            } else if(currentItem.name == "SEK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_sek))
-            } else if(currentItem.name == "IDR") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_idr))
-            } else if(currentItem.name == "INR") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_inr))
-            } else if(currentItem.name == "BRL") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_brl))
-            } else if(currentItem.name == "RUB") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_rub))
-            } else if(currentItem.name == "HRK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_hrk))
-            } else if(currentItem.name == "JPY") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_jpy))
-            } else if(currentItem.name == "THB") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_thb))
-            } else if(currentItem.name == "CHF") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_chf))
-            } else if(currentItem.name == "SGD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_sgd))
-            } else if(currentItem.name == "PLN") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_pln))
-            } else if(currentItem.name == "BGN") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_bgn))
-            } else if(currentItem.name == "TRY") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_try))
-            } else if(currentItem.name == "CNY") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_cny))
-            } else if(currentItem.name == "NOK") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_nok))
-            } else if(currentItem.name == "NZD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_nzd))
-            } else if(currentItem.name == "ZAR") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_zar))
-            } else if(currentItem.name == "USD") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_usd))
-            } else if(currentItem.name == "MXN") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_mxn))
-            } else if(currentItem.name == "ILS") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_ils))
-            } else if(currentItem.name == "GBP") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_gbp))
-            } else if(currentItem.name == "KRW") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_krw))
-            } else if(currentItem.name == "MYR") {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_myr))
+            if (currentItem.currencyName == "CAD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_cad
+                    )
+                )
+            } else if (currentItem.currencyName == "HKD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_hkd
+                    )
+                )
+            } else if (currentItem.currencyName == "ISK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_isk
+                    )
+                )
+            } else if (currentItem.currencyName == "PHP") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_php
+                    )
+                )
+            } else if (currentItem.currencyName == "DKK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_dkk
+                    )
+                )
+            } else if (currentItem.currencyName == "HUF") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_huf
+                    )
+                )
+            } else if (currentItem.currencyName == "CZK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_czk
+                    )
+                )
+            } else if (currentItem.currencyName == "AUD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_aud
+                    )
+                )
+            } else if (currentItem.currencyName == "RON") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_ron
+                    )
+                )
+            } else if (currentItem.currencyName == "SEK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_sek
+                    )
+                )
+            } else if (currentItem.currencyName == "IDR") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_idr
+                    )
+                )
+            } else if (currentItem.currencyName == "INR") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_inr
+                    )
+                )
+            } else if (currentItem.currencyName == "BRL") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_brl
+                    )
+                )
+            } else if (currentItem.currencyName == "RUB") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_rub
+                    )
+                )
+            } else if (currentItem.currencyName == "HRK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_hrk
+                    )
+                )
+            } else if (currentItem.currencyName == "JPY") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_jpy
+                    )
+                )
+            } else if (currentItem.currencyName == "THB") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_thb
+                    )
+                )
+            } else if (currentItem.currencyName == "CHF") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_chf
+                    )
+                )
+            } else if (currentItem.currencyName == "SGD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_sgd
+                    )
+                )
+            } else if (currentItem.currencyName == "PLN") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_pln
+                    )
+                )
+            } else if (currentItem.currencyName == "BGN") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_bgn
+                    )
+                )
+            } else if (currentItem.currencyName == "TRY") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_try
+                    )
+                )
+            } else if (currentItem.currencyName == "CNY") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_cny
+                    )
+                )
+            } else if (currentItem.currencyName == "NOK") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_nok
+                    )
+                )
+            } else if (currentItem.currencyName == "NZD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_nzd
+                    )
+                )
+            } else if (currentItem.currencyName == "ZAR") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_zar
+                    )
+                )
+            } else if (currentItem.currencyName == "USD") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_usd
+                    )
+                )
+            } else if (currentItem.currencyName == "MXN") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_mxn
+                    )
+                )
+            } else if (currentItem.currencyName == "ILS") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_ils
+                    )
+                )
+            } else if (currentItem.currencyName == "GBP") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_gbp
+                    )
+                )
+            } else if (currentItem.currencyName == "KRW") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_krw
+                    )
+                )
+            } else if (currentItem.currencyName == "MYR") {
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_myr
+                    )
+                )
             } else {
-                binding.currencyType.setImageDrawable(ContextCompat.getDrawable(currencyTypeContext, R.mipmap.ic_blank))
+                binding.currencyType.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        currencyTypeContext,
+                        R.mipmap.ic_blank
+                    )
+                )
             }
         }
 
@@ -120,17 +309,23 @@ class CurrencySelectAdapter(private val myList: ArrayList<Currencies>?) :
     }
 }
 
-class ShowNotesDiffCallback : DiffUtil.ItemCallback<Currencies>() {
-    override fun areItemsTheSame(oldItem: Currencies, newItem: Currencies): Boolean {
-        return oldItem.name == newItem.name
+class ShowNotesDiffCallback : DiffUtil.ItemCallback<CurrencyListStorage>() {
+    override fun areItemsTheSame(
+        oldItem: CurrencyListStorage,
+        newItem: CurrencyListStorage
+    ): Boolean {
+        return oldItem.currencyName == newItem.currencyName
     }
 
-    //    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: Currencies, newItem: Currencies): Boolean {
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(
+        oldItem: CurrencyListStorage,
+        newItem: CurrencyListStorage
+    ): Boolean {
         return oldItem == newItem
     }
 }
 
-//interface CurrencyAdapterInfo {
-//    fun editItem(currentItem: CurrencyData)
-//}
+interface CurrencyAdapterChecker {
+    fun editItem(currentItem: String, adapterChecker: Boolean)
+}

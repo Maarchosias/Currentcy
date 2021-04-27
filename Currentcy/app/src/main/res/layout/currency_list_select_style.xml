@@ -38,10 +38,18 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_checkbox"
             app:layout_constraintStart_toEndOf="@id/currency_type"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <CheckBox
+            android:id="@+id/item_checkbox"
+            android:layout_width="32.5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/navigation_currencies"
+        android:id="@+id/mainCurrencies"
         android:icon="@mipmap/ic_currencies"
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
