@@ -50,10 +50,7 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun fetchCurrencies(sentCurrencyList: String) {
-        //var symbolList: String = populateList()
-        //fetchNewList()
 
-//        localCurrencyList = Hawk.get("CURRENCY_LIST_KEY", "")
         localCurrencyList = sentCurrencyList
 
 
@@ -105,6 +102,9 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
                 requestQueue.add(jsonObjectRequest)
                 // TO DO ERROR CASE
             }
+        } else {
+            //Hawk.put("TEST_KEY", "")
+            Hawk.delete("TEST_KEY");
         }
     }
 

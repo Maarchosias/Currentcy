@@ -131,6 +131,10 @@ class CurrencyListActivity : AppCompatActivity(), CurrencyAdapterChecker {
                     }
                 }
                 counter++
+            } else {
+                val tmpCurrency = CurrencyListStorage(element.currencyId, "", element.currencyName, false)
+                currencyListStorage!!.set(counter, tmpCurrency)
+                counter++
             }
         }
 
