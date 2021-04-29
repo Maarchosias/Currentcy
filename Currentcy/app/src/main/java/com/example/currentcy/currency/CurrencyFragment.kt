@@ -23,6 +23,8 @@ class CurrencyFragment : Fragment() {
     lateinit var binding: FragmentCurrencyBinding
     lateinit var currencyViewModel: CurrencyViewModel
 
+    private lateinit var localCurrencyList : String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +35,13 @@ class CurrencyFragment : Fragment() {
         currencyViewModel = ViewModelProvider(this).get(CurrencyViewModel::class.java)
 
         binding.currencyViewModel = currencyViewModel
+
+        localCurrencyList = Hawk.get("CURRENCY_LIST_KEY", "")
+        if(localCurrencyList != "") {
+            binding.emptyList.visibility = View.INVISIBLE
+        } else {
+            binding.emptyList.visibility = View.VISIBLE
+        }
 
         return binding.root
     }
